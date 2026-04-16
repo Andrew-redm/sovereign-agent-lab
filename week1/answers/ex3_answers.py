@@ -124,7 +124,7 @@ I uncommented the time-based guard in actions.py for testing. I triggered the co
 # Min 30 words.
 
 CALM_VS_OLD_RASA = """
-FILL ME IN
+CALM makes things easier because you dont need to worry about messy regex when it comes to extracting info. Python still needed for strict business policies and principles. LLMs cant be trusted with math or business decisions that involve sums of money
 
 Think about:
 - What does the LLM handle now that Python handled before?
@@ -143,7 +143,7 @@ Think about:
 # Min 40 words.
 
 SETUP_COST_VALUE = """
-FILL ME IN
+Rasa's heavy setup buys the user determinism and safety. your process is on rails that the agent cannot deviate from. This bot will never give a recipe for cupcakes. Langraph is highly autonomous and that allows for function use and natural conversation with the user. The downside to this is the potential to hallucinate a tool or get off topic
 
 Be specific. What can the Rasa CALM agent NOT do that LangGraph could?
 Is that a feature or a limitation for the confirmation use case?
