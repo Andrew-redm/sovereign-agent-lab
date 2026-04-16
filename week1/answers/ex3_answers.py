@@ -25,7 +25,7 @@ Conversation 1 (happy path):
   Agent:  [asks guest count]
   You:    160 guests
   Agent:  [asks vegan count]
-  You:    about 50 need vegan
+  You:    about 50 need vegan'
   Agent:  [asks deposit]
   You:    £200 deposit
   Agent:  [confirms or escalates?]
@@ -42,47 +42,70 @@ Conversation 3 (out of scope):
 # ── Conversation 1: Happy path ─────────────────────────────────────────────
 
 CONVERSATION_1_TRACE = """
-PASTE YOUR rasa shell TERMINAL OUTPUT HERE
+Your input ->  calling to confirm a booking
+How many guests are you confirming for tonight's event?        
+Your input ->  160 guests
+And how many of those guests will need vegan meals?
+Your input ->  about 50 need vegan
+What deposit amount in GBP are you proposing to secure the booking?
+Your input ->  £200 deposit
+Thank you — booking confirmed. 160 guests, 50 requiring vegan meals, £200 deposit accepted. I'll send written confirmation to the organiser shortly.
+Is there anything else I can help you with?
 """
 
-CONVERSATION_1_OUTCOME = "FILL_ME_IN"   # "confirmed" or "escalated"
+CONVERSATION_1_OUTCOME = "confirmed"   # "confirmed" or "escalated"
 
 # ── Conversation 2: Deposit too high ───────────────────────────────────────
 
 CONVERSATION_2_TRACE = """
-PASTE YOUR rasa shell TERMINAL OUTPUT HERE
+Your input ->  calling to confirm a booking
+How many guests are you confirming for tonight's event?        
+Your input ->  160 guests
+And how many of those guests will need vegan meals?
+Your input ->  about 50 need vegan
+What deposit amount in GBP are you proposing to secure the booking?
+Your input ->  £301 deposit
+I need to check one thing with the organiser before I can confirm. The issue is: a deposit of £301 exceeds the organiser's authorised limit of £300. Can I call you back within 15 minutes?
+Is there anything else I can help you with?
+Your input ->  No that will do
 """
 
-CONVERSATION_2_OUTCOME = "FILL_ME_IN"   # "confirmed" or "escalated"
-CONVERSATION_2_REASON  = "FILL_ME_IN"   # the reason the agent gave for escalating
+CONVERSATION_2_OUTCOME = "escalated"   # "confirmed" or "escalated"
+CONVERSATION_2_REASON  = "deposit  exceeds the organiser's authorised limit of £300"   # the reason the agent gave for escalating
 
 # ── Conversation 3: Out of scope ───────────────────────────────────────────
 
 CONVERSATION_3_TRACE = """
-PASTE YOUR rasa shell TERMINAL OUTPUT HERE
+Your input ->  calling to confirm a booking
+How many guests are you confirming for tonight's event?        
+Your input ->  160 guests
+And how many of those guests will need vegan meals?
+Your input ->  can you arrange parking for the speakers?      
+I can only help with confirming tonight's venue booking. For anything else, please contact the event organiser directly.    
+Would you like to continue with confirm booking?
+Your input ->  yes
+What deposit amount in GBP are you proposing to secure the booking?
 """
 
 # Describe what CALM did after the out-of-scope message. Min 20 words.
 CONVERSATION_3_WHAT_HAPPENED = """
-FILL ME IN
+CALM handled the out of scope request by suggesting that we talk to the event organiser directly and refused to answer something that it didnt know- 
 """
 
 # Compare Rasa CALM's handling of the out-of-scope request to what
 # LangGraph did in Exercise 2 Scenario 3. Min 40 words.
 OUT_OF_SCOPE_COMPARISON = """
-FILL ME IN
+Rasa relied on strict rails - if anything came up that it is not designed to deal with, it will state that and try to get back into the defined flow. In the langgraph example a generative repy was generated when we tried to go out of scope
 """
 
-# ── Task B: Cutoff guard ───────────────────────────────────────────────────
-
-TASK_B_DONE = None   # True or False
+TASK_B_DONE = True
 
 # List every file you changed.
-TASK_B_FILES_CHANGED = []
+TASK_B_FILES_CHANGED = ["actions/actions.py"]
 
 # How did you test that it works? Min 20 words.
 TASK_B_HOW_YOU_TESTED = """
-FILL ME IN
+I uncommented the time-based guard in actions.py for testing. I triggered the confirmation flow in the Rasa shell. The Python logic evaluated the current time and escalating the booking
 """
 
 # ── CALM vs Old Rasa ───────────────────────────────────────────────────────
